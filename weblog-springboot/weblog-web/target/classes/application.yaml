@@ -1,0 +1,18 @@
+spring:
+  # 企业级项目开发中，一般项目默认会激活 dev 环境
+  profiles:
+    active: dev
+jwt:
+  # 签发人
+  issuer: xq
+  # 秘钥
+  secret: 9rTA6iWXPs6UHtQORx/2Ws3F0JYRr6ZnNdAx9orJGZAdN4SrlGKu5Q0QYW5OT/yI3o8lwwO7C0Yz/AiwXEOOOg==
+  # token 过期时间（单位：分钟） 24*60
+  tokenExpireTime: 1440
+  # token 请求头中的 key 值
+  tokenHeaderKey: Authorization
+  # token 请求头中的 value 值前缀
+  tokenPrefix: Bearer
+
+
+

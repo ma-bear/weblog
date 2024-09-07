@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for weblog" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="D:/softwares/maven/Workspace/MavenRepository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar" />
+          <entry name="D:/softwares/maven/Workspace/MavenRepository/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="D:/softwares/maven/Workspace/MavenRepository/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="weblog-jwt" />
+        <module name="weblog-common" />
+        <module name="weblog-search" />
+        <module name="weblog-admin" />
+        <module name="weblog-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="weblog-module-search" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="weblog" options="" />
+      <module name="weblog-admin" options="-parameters" />
+      <module name="weblog-common" options="-parameters" />
+      <module name="weblog-jwt" options="-parameters" />
+      <module name="weblog-module-search" options="-parameters" />
+      <module name="weblog-search" options="-parameters" />
+      <module name="weblog-web" options="-parameters" />
+    </option>
+  </component>
+</project>
