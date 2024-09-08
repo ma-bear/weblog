@@ -31,8 +31,8 @@ public class CategoryController {
     @PostMapping("/list")
     @ApiOperation(value = "前台获取分类列表")
     @ApiOperationLog(description = "前台获取分类列表")
-    public Response findCategoryList() {
-        return categoryService.findCategoryList();
+    public Response findCategoryList(@RequestBody @Validated FindCategoryListReqVO findCategoryListReqVO) {
+        return categoryService.findCategoryList(findCategoryListReqVO);
     }
 
     @PostMapping("/article/list")
@@ -40,12 +40,5 @@ public class CategoryController {
     @ApiOperationLog(description = "前台获取分类下文章分页数据")
     public Response findCategoryArticlePageList(@RequestBody @Validated FindCategoryArticlePageListReqVO findCategoryArticlePageListReqVO) {
         return categoryService.findCategoryArticlePageList(findCategoryArticlePageListReqVO);
-    }
-
-    @PostMapping("/list")
-    @ApiOperation(value = "前台获取分类列表")
-    @ApiOperationLog(description = "前台获取分类列表")
-    public Response findCategoryList(@RequestBody @Validated FindCategoryListReqVO findCategoryListReqVO) {
-        return categoryService.findCategoryList(findCategoryListReqVO);
     }
 }
