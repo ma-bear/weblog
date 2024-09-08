@@ -22,11 +22,11 @@ import java.util.Objects;
 public interface ArticleMapper extends BaseMapper<ArticleDO> {
     /**
      * 分页查询
-     * @param current 当前页码
-     * @param size 每页展示的数据量
-     * @param title 文章标题
-     * @param startDate 开始时间
-     * @param endDate 结束时间
+     * @param current
+     * @param size
+     * @param title
+     * @param startDate
+     * @param endDate
      * @return
      */
     default Page<ArticleDO> selectPageList(Long current, Long size, String title, LocalDate startDate, LocalDate endDate) {
@@ -38,6 +38,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
                 .like(StringUtils.isNotBlank(title), ArticleDO::getTitle, title) // like 模块查询
                 .ge(Objects.nonNull(startDate), ArticleDO::getCreateTime, startDate) // 大于等于 startDate
                 .le(Objects.nonNull(endDate), ArticleDO::getCreateTime, endDate)  // 小于等于 endDate
+                .orderByDesc(ArticleDO::getWeight) // 按权重倒序
                 .orderByDesc(ArticleDO::getCreateTime); // 按创建时间倒叙
 
         return selectPage(page, wrapper);
@@ -119,4 +120,15 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
             "WHERE create_time >= #{startDate} AND create_time < #{endDate}\n" +
             "GROUP BY DATE(create_time)")
     List<ArticlePublishCountDO> selectDateArticlePublishCount(LocalDate startDate, LocalDate endDate);
+
+    /**
+     * 查询最大权重值记录
+     * @return
+     */
+    default ArticleDO selectMaxWeight() {
+        return selectOne(Wrappers.<ArticleDO>lambdaQuery()
+                .orderByDesc(ArticleDO::getWeight) // 按权重值降序排列
+                .last("LIMIT 1")); // 仅查询出一条
+    }
+
 }
