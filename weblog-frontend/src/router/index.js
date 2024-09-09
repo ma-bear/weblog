@@ -10,8 +10,12 @@ import Login from '@/pages/admin/login.vue'
 import AdminIndex from '@/pages/admin/index.vue'
 import AdminArticleList from '@/pages/admin/article-list.vue'
 import AdminCategoryList from '@/pages/admin/category-list.vue'
+import AdminCommentList from '@/pages/admin/comment-list.vue'
 import AdminTagList from '@/pages/admin/tag-list.vue'
 import AdminBlogSettings from '@/pages/admin/blog-settings.vue'
+import AdminWikiList from '@/pages/admin/wiki-list.vue'
+import WikiList from '@/pages/frontend/wiki-list.vue'
+import WikiDetail from '@/pages/frontend/wiki-detail.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Admin from '@/layouts/admin/admin.vue'
 
@@ -64,6 +68,20 @@ const routes = [
         component: ArticleDetail,
         meta: { // meta 信息
             title: 'Weblog 详情页'
+        }
+    },
+    {
+        path: '/wiki/list', // 知识库
+        component: WikiList,
+        meta: {
+            title: '知识库'
+        }
+    },
+    {
+        path: '/wiki/:wikiId', // 知识库详情页
+        component: WikiDetail,
+        meta: {
+            title: '知识库详情'
         }
     },
     {
@@ -121,8 +139,21 @@ const routes = [
                     title: '博客设置'
                 }
             },
+            {
+                path: "/admin/wiki/list",
+                component: AdminWikiList,
+                meta: {
+                    title: '知识库管理'
+                }
+            },
+            {
+                path: "/admin/comment/list",
+                component: AdminCommentList,
+                meta: {
+                    title: '评论管理'
+                }
+            },
         ]
-        
     }
 ]
 
