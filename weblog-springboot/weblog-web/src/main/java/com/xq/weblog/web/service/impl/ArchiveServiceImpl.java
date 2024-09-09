@@ -17,16 +17,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.time.YearMonth;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author xq
- * @create 2024/9/4 10:05
- */
+ * @author: xq
+ * 
+ * @date: 2023-09-15 14:03
+ * @description: 文章归档
+ **/
 @Service
 @Slf4j
 public class ArchiveServiceImpl implements ArchiveService {
@@ -46,7 +45,7 @@ public class ArchiveServiceImpl implements ArchiveService {
         Long size = findArchiveArticlePageListReqVO.getSize();
 
         // 分页查询
-        IPage<ArticleDO> page = articleMapper.selectPageList(current, size, null, null, null);
+        IPage<ArticleDO> page = articleMapper.selectPageList(current, size, null, null, null, null);
         List<ArticleDO> articleDOS = page.getRecords();
 
         List<FindArchiveArticlePageListRspVO> vos = Lists.newArrayList();
@@ -69,4 +68,3 @@ public class ArchiveServiceImpl implements ArchiveService {
         return PageResponse.success(page, vos);
     }
 }
-

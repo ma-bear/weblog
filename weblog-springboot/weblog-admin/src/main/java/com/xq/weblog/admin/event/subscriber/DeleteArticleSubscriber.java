@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023/11/9 10:08
  * @description: TODO
  **/

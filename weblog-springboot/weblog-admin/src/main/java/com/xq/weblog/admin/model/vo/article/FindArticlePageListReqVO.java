@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * @author xq
- * @create 2024/9/3 13:13
- */
+ * @author: xq
+ * 
+ * @date: 2023-09-15 14:07
+ * @description: 文章分页
+ **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,5 +37,9 @@ public class FindArticlePageListReqVO extends BasePageQuery {
      */
     private LocalDate endDate;
 
-}
+    /**
+     * 文章类型
+     */
+    private Integer type;
 
+}

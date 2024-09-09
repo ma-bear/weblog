@@ -14,8 +14,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023/11/1 14:41
  * @description: 自定义图片节点渲染器
  **/

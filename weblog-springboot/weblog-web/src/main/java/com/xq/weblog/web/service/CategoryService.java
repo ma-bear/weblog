@@ -5,8 +5,8 @@ import com.xq.weblog.web.model.vo.category.FindCategoryArticlePageListReqVO;
 import com.xq.weblog.web.model.vo.category.FindCategoryListReqVO;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-09-15 14:03
  * @description: 分类
  **/

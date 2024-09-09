@@ -34,8 +34,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-09-15 14:03
  * @description: 文章
  **/
@@ -70,7 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
         Long size = findIndexArticlePageListReqVO.getSize();
 
         // 第一步：分页查询文章主体记录
-        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, null, null, null);
+        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, null, null, null, null);
 
         // 返回的分页数据
         List<ArticleDO> articleDOS = articleDOPage.getRecords();

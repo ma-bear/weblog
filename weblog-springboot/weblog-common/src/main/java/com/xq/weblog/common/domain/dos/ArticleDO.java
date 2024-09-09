@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-08-22 17:01
  * @description: 文章
  **/
@@ -41,4 +41,6 @@ public class ArticleDO {
     private Long readNum;
 
     private Integer weight;
+
+    private Integer type;
 }

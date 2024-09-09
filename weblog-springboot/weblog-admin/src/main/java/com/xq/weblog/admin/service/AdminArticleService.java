@@ -4,8 +4,8 @@ import com.xq.weblog.admin.model.vo.article.*;
 import com.xq.weblog.common.utils.Response;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-09-15 14:03
  * @description: 文章
  **/

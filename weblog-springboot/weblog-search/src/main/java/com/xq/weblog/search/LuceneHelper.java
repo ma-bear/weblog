@@ -25,8 +25,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023/12/5 16:15
  * @description: lucene 工具类
  **/

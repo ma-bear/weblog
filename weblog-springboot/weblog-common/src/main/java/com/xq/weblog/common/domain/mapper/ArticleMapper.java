@@ -14,12 +14,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-08-22 17:06
  * @description: 文章
  **/
 public interface ArticleMapper extends BaseMapper<ArticleDO> {
+
     /**
      * 分页查询
      * @param current
@@ -29,7 +30,8 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      * @param endDate
      * @return
      */
-    default Page<ArticleDO> selectPageList(Long current, Long size, String title, LocalDate startDate, LocalDate endDate) {
+    default Page<ArticleDO> selectPageList(Long current, Long size, String title,
+                                           LocalDate startDate, LocalDate endDate, Integer type) {
         // 分页对象(查询第几页、每页多少数据)
         Page<ArticleDO> page = new Page<>(current, size);
 
@@ -38,6 +40,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
                 .like(StringUtils.isNotBlank(title), ArticleDO::getTitle, title) // like 模块查询
                 .ge(Objects.nonNull(startDate), ArticleDO::getCreateTime, startDate) // 大于等于 startDate
                 .le(Objects.nonNull(endDate), ArticleDO::getCreateTime, endDate)  // 小于等于 endDate
+                .eq(Objects.nonNull(type), ArticleDO::getType, type) // 文章类型
                 .orderByDesc(ArticleDO::getWeight) // 按权重倒序
                 .orderByDesc(ArticleDO::getCreateTime); // 按创建时间倒叙
 
@@ -57,7 +60,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
 
         // 构建查询条件
         LambdaQueryWrapper<ArticleDO> wrapper = Wrappers.<ArticleDO>lambdaQuery()
-                .in(ArticleDO::getId, articleIds) // 批量查询
+                .in(ArticleDO::getId, articleIds)
                 .orderByDesc(ArticleDO::getCreateTime); // 按创建时间倒叙
 
         return selectPage(page, wrapper);
@@ -70,7 +73,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      */
     default ArticleDO selectPreArticle(Long articleId) {
         return selectOne(Wrappers.<ArticleDO>lambdaQuery()
-                .orderByAsc(ArticleDO::getId) // 按文章 ID 升序排列
+                .orderByAsc(ArticleDO::getId) // 按文章 ID 倒序排列
                 .gt(ArticleDO::getId, articleId) // 查询比当前文章 ID 大的
                 .last("limit 1")); // 第一条记录即为上一篇文章
     }
@@ -93,14 +96,13 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      * @return
      */
     default int increaseReadNum(Long articleId) {
-        // 执行 SQL : UPDATE t_article SET read_num = read_num + 1 WHERE (id = XX)
         return update(null, Wrappers.<ArticleDO>lambdaUpdate()
                 .setSql("read_num = read_num + 1")
                 .eq(ArticleDO::getId, articleId));
     }
 
     /**
-     * 查询所有记录的阅读量
+     * 查询所有记录的总阅读量
      * @return
      */
     default List<ArticleDO> selectAllReadNum() {
@@ -131,4 +133,14 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
                 .last("LIMIT 1")); // 仅查询出一条
     }
 
+    /**
+     * 批量更新文章
+     * @param articleDO
+     * @param ids
+     * @return
+     */
+    default int updateByIds(ArticleDO articleDO, List<Long> ids) {
+        return update(articleDO, Wrappers.<ArticleDO>lambdaUpdate()
+                .in(ArticleDO::getId, ids));
+    }
 }

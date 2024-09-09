@@ -7,8 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-09-15 14:07
  * @description: 首页-文章分页
  **/

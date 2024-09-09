@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @author: 犬小哈
- * @url: www.quanxiaoha.com
+ * @author: xq
+ * 
  * @date: 2023-09-15 14:07
  * @description: 文章发布
  **/
