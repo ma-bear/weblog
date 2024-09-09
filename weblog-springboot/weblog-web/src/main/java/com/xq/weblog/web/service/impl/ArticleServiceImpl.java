@@ -185,6 +185,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .readNum(articleDO.getReadNum())
                 .totalWords(totalWords)
                 .readTime(MarkdownStatsUtil.calculateReadingTime(totalWords))
+                .updateTime(articleDO.getUpdateTime())
                 .build();
 
         // 查询所属分类
