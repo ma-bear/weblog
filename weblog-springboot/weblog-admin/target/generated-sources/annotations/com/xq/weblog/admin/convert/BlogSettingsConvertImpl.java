@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-08T22:39:09+0800",
+    date = "2024-09-09T17:10:50+0800",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 1.8.0_202 (Oracle Corporation)"
 )
 public class BlogSettingsConvertImpl implements BlogSettingsConvert {
@@ -29,6 +29,9 @@ public class BlogSettingsConvertImpl implements BlogSettingsConvert {
         blogSettingsDO.csdnHomepage( bean.getCsdnHomepage() );
         blogSettingsDO.giteeHomepage( bean.getGiteeHomepage() );
         blogSettingsDO.zhihuHomepage( bean.getZhihuHomepage() );
+        blogSettingsDO.mail( bean.getMail() );
+        blogSettingsDO.isCommentSensiWordOpen( bean.getIsCommentSensiWordOpen() );
+        blogSettingsDO.isCommentExamineOpen( bean.getIsCommentExamineOpen() );
 
         return blogSettingsDO.build();
     }
@@ -50,6 +53,9 @@ public class BlogSettingsConvertImpl implements BlogSettingsConvert {
         findBlogSettingsRspVO.csdnHomepage( bean.getCsdnHomepage() );
         findBlogSettingsRspVO.giteeHomepage( bean.getGiteeHomepage() );
         findBlogSettingsRspVO.zhihuHomepage( bean.getZhihuHomepage() );
+        findBlogSettingsRspVO.mail( bean.getMail() );
+        findBlogSettingsRspVO.isCommentSensiWordOpen( bean.getIsCommentSensiWordOpen() );
+        findBlogSettingsRspVO.isCommentExamineOpen( bean.getIsCommentExamineOpen() );
 
         return findBlogSettingsRspVO.build();
     }
