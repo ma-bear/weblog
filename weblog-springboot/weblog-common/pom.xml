@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.xq</groupId>
-        <artifactId>weblog</artifactId>
+        <artifactId>weblog-springboot</artifactId>
         <version>${revision}</version>
     </parent>
 

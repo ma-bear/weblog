@@ -5,7 +5,7 @@
     <!--     指定父项目为 weblog-springboot -->
     <parent>
         <groupId>com.xq</groupId>
-        <artifactId>weblog</artifactId>
+        <artifactId>weblog-springboot</artifactId>
         <version>${revision}</version>
     </parent>
 
