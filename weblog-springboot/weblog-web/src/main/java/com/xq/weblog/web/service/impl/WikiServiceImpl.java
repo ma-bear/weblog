@@ -1,11 +1,16 @@
 package com.xq.weblog.web.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.xq.weblog.admin.convert.WikiConvert;
+import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListReqVO;
+import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListRspVO;
 import com.xq.weblog.common.domain.dos.WikiCatalogDO;
 import com.xq.weblog.common.domain.dos.WikiDO;
 import com.xq.weblog.common.domain.mapper.WikiCatalogMapper;
 import com.xq.weblog.common.domain.mapper.WikiMapper;
 import com.xq.weblog.common.enums.WikiCatalogLevelEnum;
+import com.xq.weblog.common.utils.PageResponse;
 import com.xq.weblog.common.utils.Response;
 import com.xq.weblog.web.model.vo.archive.FindPreNextArticleRspVO;
 import com.xq.weblog.web.model.vo.wiki.*;
@@ -15,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -170,4 +176,36 @@ public class WikiServiceImpl implements WikiService {
         return Response.success(vo);
     }
 
+    /**
+     * 知识库分页查询
+     *
+     * @param findWikiPageListReqVO
+     * @return
+     */
+    @Override
+    public Response findWikiPageList(FindWikiPageListReqVO findWikiPageListReqVO) {
+        // 获取当前页、以及每页需要展示的数据数量
+        Long current = findWikiPageListReqVO.getCurrent();
+        Long size = findWikiPageListReqVO.getSize();
+        // 查询条件
+        String title = findWikiPageListReqVO.getTitle();
+        LocalDate startDate = findWikiPageListReqVO.getStartDate();
+        LocalDate endDate = findWikiPageListReqVO.getEndDate();
+
+        // 执行分页查询
+        Page<WikiDO> wikiDOPage = wikiMapper.selectPageList(current, size, title, startDate, endDate, null);
+
+        // 获取查询记录
+        List<WikiDO> wikiDOS = wikiDOPage.getRecords();
+
+        // DO 转 VO
+        List<FindWikiPageListRspVO> vos = null;
+        if (!CollectionUtils.isEmpty(wikiDOS)) {
+            vos = wikiDOS.stream()
+                    .map(articleDO -> WikiConvert.INSTANCE.convertDO2VO(articleDO))
+                    .collect(Collectors.toList());
+        }
+
+        return PageResponse.success(wikiDOPage, vos);
+    }
 }

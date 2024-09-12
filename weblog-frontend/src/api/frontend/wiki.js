@@ -15,4 +15,9 @@ export function getWikiCatalogs(id) {
     return axios.post("/wiki/catalog/list", {id})
 }
 
+// 获取文章归档分页数据
+export function getWikiPageList(data) {
+    return axios.post("/wiki/page/list", data)
+}
+
 
