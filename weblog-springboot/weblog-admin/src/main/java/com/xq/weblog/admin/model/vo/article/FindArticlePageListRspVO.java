@@ -41,5 +41,10 @@ public class FindArticlePageListRspVO  {
      * 是否置顶
      */
     private Boolean isTop;
+
+    /**
+     * 是否发布
+     */
+    private Boolean isPublish;
 }
 

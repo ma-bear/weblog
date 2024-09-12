@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author: xq
- * 
  * @date: 2023-09-15 14:03
  * @description: 文章
  **/
@@ -156,7 +155,7 @@ public class AdminArticleServiceImpl implements AdminArticleService {
         Integer type = findArticlePageListReqVO.getType();
 
         // 执行分页查询
-        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, title, startDate, endDate, type);
+        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, title, startDate, endDate, type,null);
 
         List<ArticleDO> articleDOS = articleDOPage.getRecords();
 
@@ -170,6 +169,7 @@ public class AdminArticleServiceImpl implements AdminArticleService {
                             .cover(articleDO.getCover())
                             .createTime(articleDO.getCreateTime())
                             .isTop(articleDO.getWeight() > 0)
+                            .isPublish(articleDO.getIsPublish())
                             .build())
                     .collect(Collectors.toList());
         }
@@ -391,5 +391,20 @@ public class AdminArticleServiceImpl implements AdminArticleService {
             // 批量插入
             articleTagRelMapper.insertBatchSomeColumn(articleTagRelDOS);
         }
+    }
+
+    /**
+     * 更新知识库发布状态
+     *
+     * @param updateArticleIsPublishReqVO
+     * @return
+     */
+    @Override
+    public Response updateArticleIsPublish(UpdateArticleIsPublishReqVO updateArticleIsPublishReqVO) {
+        Long articleId = updateArticleIsPublishReqVO.getId();
+        Boolean isPublish = updateArticleIsPublishReqVO.getIsPublish();
+        // 更新发布状态
+        articleMapper.updateById(ArticleDO.builder().id(articleId).isPublish(isPublish).build());
+        return Response.success();
     }
 }

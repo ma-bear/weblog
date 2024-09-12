@@ -1,4 +1,4 @@
-package com.xq.weblog.admin.model.vo.wiki;
+package com.xq.weblog.admin.model.vo.article;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -11,18 +11,18 @@ import javax.validation.constraints.NotNull;
 /**
  * @author: xq
  * @date: 2023-09-15 14:07
- * @description: 更新知识库发布状态
+ * @description: 更新文章发布状态
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ApiModel(value = "更新知识库发布状态 VO")
-public class UpdateWikiIsPublishReqVO {
+@ApiModel(value = "更新文章发布状态 VO")
+public class UpdateArticleIsPublishReqVO {
 
-    @NotNull(message = "知识库 ID 不能为空")
+    @NotNull(message = "文章 ID 不能为空")
     private Long id;
 
-    @NotNull(message = "知识库发布状态不能为空")
+    @NotNull(message = "文章发布状态不能为空")
     private Boolean isPublish;
 }

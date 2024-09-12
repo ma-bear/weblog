@@ -24,3 +24,7 @@ export function updateArticle(data) {
 export function updateArticleIsTop(data) {
     return axios.post("/admin/article/isTop/update", data)
 }
+// 更新文章发布状态
+export function updateArticleIsPublish(data) {
+    return axios.post("/admin/article/isPublish/update", data)
+}

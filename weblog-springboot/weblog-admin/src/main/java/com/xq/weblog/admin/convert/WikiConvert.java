@@ -8,7 +8,6 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * @author: xq
- * 
  * @date: 2023/10/8 14:57
  * @description: 知识库实体类转换
  **/

@@ -1,6 +1,6 @@
 import axios from "@/axios";
 
-// 获取文章分页数据
+// 获取知识库分页数据
 export function getWikiPageList(data) {
     return axios.post("/admin/wiki/list", data)
 }

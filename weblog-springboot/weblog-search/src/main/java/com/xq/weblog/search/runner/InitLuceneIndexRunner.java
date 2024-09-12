@@ -23,7 +23,6 @@ import java.util.List;
 
 /**
  * @author: xq
- * 
  * @date: 2023/12/5 15:10
  * @description: 初始化 lucene 索引
  **/

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xq.weblog.common.domain.dos.ArticleDO;
 import com.xq.weblog.common.domain.dos.ArticlePublishCountDO;
+import com.xq.weblog.common.domain.dos.WikiDO;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
@@ -15,14 +16,13 @@ import java.util.Objects;
 
 /**
  * @author: xq
- * 
  * @date: 2023-08-22 17:06
  * @description: 文章
  **/
 public interface ArticleMapper extends BaseMapper<ArticleDO> {
 
     /**
-     * 分页查询
+     * 分页查询 + 查询已发布的知识库
      * @param current
      * @param size
      * @param title
@@ -31,7 +31,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      * @return
      */
     default Page<ArticleDO> selectPageList(Long current, Long size, String title,
-                                           LocalDate startDate, LocalDate endDate, Integer type) {
+                                           LocalDate startDate, LocalDate endDate, Integer type, Boolean isPublish) {
         // 分页对象(查询第几页、每页多少数据)
         Page<ArticleDO> page = new Page<>(current, size);
 
@@ -41,6 +41,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
                 .ge(Objects.nonNull(startDate), ArticleDO::getCreateTime, startDate) // 大于等于 startDate
                 .le(Objects.nonNull(endDate), ArticleDO::getCreateTime, endDate)  // 小于等于 endDate
                 .eq(Objects.nonNull(type), ArticleDO::getType, type) // 文章类型
+                .eq(ArticleDO::getIsPublish, 1) // 查询已发布的， is_publish 值为 1
                 .orderByDesc(ArticleDO::getWeight) // 按权重倒序
                 .orderByDesc(ArticleDO::getCreateTime); // 按创建时间倒叙
 

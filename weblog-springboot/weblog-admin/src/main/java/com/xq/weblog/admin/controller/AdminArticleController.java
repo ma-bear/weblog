@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: xq
- * 
  * @date: 2023-09-15 14:01
  * @description: 文章模块
  **/
@@ -73,4 +72,13 @@ public class AdminArticleController {
     public Response updateArticleIsTop(@RequestBody @Validated UpdateArticleIsTopReqVO updateArticleIsTopReqVO) {
         return articleService.updateArticleIsTop(updateArticleIsTopReqVO);
     }
+
+    @PostMapping("/isPublish/update")
+    @ApiOperation(value = "更新文章发布状态")
+    @ApiOperationLog(description = "更新文章发布状态")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Response updateArticleIsPublish(@RequestBody @Validated UpdateArticleIsPublishReqVO updateArticleIsPublishReqVO) {
+        return articleService.updateArticleIsPublish(updateArticleIsPublishReqVO);
+    }
+
 }

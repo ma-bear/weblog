@@ -6,7 +6,6 @@ import lombok.Getter;
 
 /**
  * @author: xq
- * 
  * @date: 2023-08-15 10:33
  * @description: 响应异常码
  **/

@@ -5,7 +5,6 @@ import lombok.Getter;
 
 /**
  * @author: xq
- * 
  * @date: 2023-08-15 10:33
  * @description: 文章类型
  **/

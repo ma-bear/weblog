@@ -50,6 +50,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="createTime" label="发布时间" width="180" />
+                <el-table-column prop="isPublish" label="是否发布" >
+                    <template #default="scope">
+                        <el-switch
+                            @change="handleIsPublishChange(scope.row)"
+                            v-model="scope.row.isPublish"
+                            inline-prompt
+                            :active-icon="Check"
+                            :inactive-icon="Close"
+                        />
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作">
                     <template #default="scope">
                         <el-button size="small" @click="showArticleUpdateEditor(scope.row)">
@@ -104,6 +115,7 @@
                     </div>
                 </el-affix>
             </template>
+            <el-divider />
             <!-- label-position="top" 用于指定 label 元素在上面 -->
             <el-form :model="form" ref="publishArticleFormRef" label-position="top" size="large" :rules="rules">
                 <el-form-item label="标题" prop="title">
@@ -215,7 +227,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { Search, RefreshRight, Check, Close } from '@element-plus/icons-vue'
-import { getArticlePageList, deleteArticle, publishArticle, getArticleDetail, updateArticle, updateArticleIsTop } from '@/api/admin/article'
+import { getArticlePageList, deleteArticle, publishArticle, getArticleDetail, updateArticle, updateArticleIsTop, updateArticleIsPublish } from '@/api/admin/article'
 import { uploadFile } from '@/api/admin/file'
 import { getCategorySelectList } from '@/api/admin/category'
 import { searchTags, getTagSelectList } from '@/api/admin/tag'
@@ -376,7 +388,7 @@ const rules = {
     ],
     content: [{ required: true }],
     cover: [{ required: true }],
-    categoryId: [{ required: true, message: '请选择文章分类', trigger: 'blur' }],
+    categoryId: [{ required: false, message: '请选择文章分类', trigger: 'blur' }],
     tags: [{ required: true, message: '请选择文章标签', trigger: 'blur' }],
 }
 
@@ -582,6 +594,23 @@ const handleIsTopChange = (row) => {
         }
 
         showMessage(row.isTop ? '置顶成功' : "已取消置顶")
+    })
+}
+// 更新发布状态
+const handleIsPublishChange = (row) => {
+    updateArticleIsPublish({id: row.id, isPublish: row.isPublish}).then((res) => {
+        // 重新请求分页接口，渲染列表数据
+        getTableData()
+
+        if (res.success == false) {
+            // 获取服务端返回的错误消息
+            let message = res.message
+            // 提示错误消息
+            showMessage(message, 'error')
+            return
+        }
+
+        showMessage(row.isPublish ? '发布成功' : "已取消发布")
     })
 }
 </script>

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author: xq
- * 
  * @date: 2023-09-15 14:03
  * @description: 文章归档
  **/
@@ -45,7 +44,7 @@ public class ArchiveServiceImpl implements ArchiveService {
         Long size = findArchiveArticlePageListReqVO.getSize();
 
         // 分页查询
-        IPage<ArticleDO> page = articleMapper.selectPageList(current, size, null, null, null, null);
+        IPage<ArticleDO> page = articleMapper.selectPageList(current, size, null, null, null, null, null);
         List<ArticleDO> articleDOS = page.getRecords();
 
         List<FindArchiveArticlePageListRspVO> vos = Lists.newArrayList();

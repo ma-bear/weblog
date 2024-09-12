@@ -26,7 +26,6 @@ import java.util.List;
 
 /**
  * @author: xq
- * 
  * @date: 2023/12/5 16:15
  * @description: lucene 工具类
  **/

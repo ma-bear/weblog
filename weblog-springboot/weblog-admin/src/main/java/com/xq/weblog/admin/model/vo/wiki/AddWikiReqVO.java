@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author: xq
- * 
  * @date: 2023-09-15 14:07
  * @description: 新增知识库
  **/

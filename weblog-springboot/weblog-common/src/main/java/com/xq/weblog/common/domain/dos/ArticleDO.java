@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author: xq
- * 
  * @date: 2023-08-22 17:01
  * @description: 文章
  **/
@@ -43,4 +42,6 @@ public class ArticleDO {
     private Integer weight;
 
     private Integer type;
+
+    private Boolean isPublish;
 }

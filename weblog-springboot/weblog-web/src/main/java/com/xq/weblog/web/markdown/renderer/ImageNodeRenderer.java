@@ -15,7 +15,6 @@ import java.util.Set;
 
 /**
  * @author: xq
- * 
  * @date: 2023/11/1 14:41
  * @description: 自定义图片节点渲染器
  **/

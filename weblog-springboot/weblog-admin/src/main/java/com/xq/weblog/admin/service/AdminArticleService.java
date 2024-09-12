@@ -5,7 +5,6 @@ import com.xq.weblog.common.utils.Response;
 
 /**
  * @author: xq
- * 
  * @date: 2023-09-15 14:03
  * @description: 文章
  **/
@@ -51,4 +50,11 @@ public interface AdminArticleService {
      * @return
      */
     Response updateArticleIsTop(UpdateArticleIsTopReqVO updateArticleIsTopReqVO);
+
+    /**
+     * 更新文章发布状态
+     * @param updateArticleIsPublishReqVO
+     * @return
+     */
+    Response updateArticleIsPublish(UpdateArticleIsPublishReqVO updateArticleIsPublishReqVO);
 }
