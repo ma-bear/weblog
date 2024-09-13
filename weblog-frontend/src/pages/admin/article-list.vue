@@ -30,55 +30,42 @@
             </div>
 
             <!-- 分页列表 -->
-            <el-table :data="tableData" border stripe style="width: 100%" v-loading="tableLoading">
-                <el-table-column prop="id" label="ID" width="50" />
-                <el-table-column prop="title" label="标题" width="380" />
-                <el-table-column prop="cover" label="封面" width="180">
+            <el-table :data="tableData" border stripe v-loading="tableLoading" table-layout="auto">
+                <el-table-column prop="id" label="ID" />
+                <el-table-column prop="title" label="标题" />
+                <el-table-column prop="cover" label="封面">
                     <template #default="scope">
                         <el-image style="width: 100px;" :src="scope.row.cover" />
                     </template>
                 </el-table-column>
-                <el-table-column prop="isTop" label="是否置顶" width="100">
+                <el-table-column prop="isTop" label="是否置顶">
                     <template #default="scope">
-                        <el-switch
-                            @change="handleIsTopChange(scope.row)"
-                            v-model="scope.row.isTop"
-                            inline-prompt
-                            :active-icon="Check"
-                            :inactive-icon="Close"
-                        />
+                        <el-switch @change="handleIsTopChange(scope.row)" v-model="scope.row.isTop" inline-prompt
+                            :active-icon="Check" :inactive-icon="Close" />
                     </template>
                 </el-table-column>
-                <el-table-column prop="createTime" label="发布时间" width="180" />
-                <el-table-column prop="isPublish" label="是否发布" >
+                <el-table-column prop="createTime" label="发布时间" />
+                <el-table-column prop="isPublish" label="是否发布">
                     <template #default="scope">
-                        <el-switch
-                            @change="handleIsPublishChange(scope.row)"
-                            v-model="scope.row.isPublish"
-                            inline-prompt
-                            :active-icon="Check"
-                            :inactive-icon="Close"
-                        />
+                        <el-switch @change="handleIsPublishChange(scope.row)" v-model="scope.row.isPublish"
+                            inline-prompt :active-icon="Check" :inactive-icon="Close" />
                     </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column fixed="right" label="操作" width="160">
                     <template #default="scope">
-                        <el-button size="small" @click="showArticleUpdateEditor(scope.row)">
-                            <el-icon class="mr-1">
-                                <Edit />
-                            </el-icon>
-                            编辑</el-button>
-                            <el-button size="small" @click="goArticleDetailPage(scope.row.id)">
-                            <el-icon class="mr-1">
-                                <View />
-                            </el-icon>
-                            预览</el-button>
-                        <el-button type="danger" size="small" @click="deleteArticleSubmit(scope.row)">
-                            <el-icon class="mr-1">
-                                <Delete />
-                            </el-icon>
-                            删除
-                        </el-button>
+                        <el-tooltip class="box-item" effect="dark" content="编辑" placement="bottom">
+                            <el-button size="small" @click="showArticleUpdateEditor(scope.row)" :icon="Edit" circle>
+                            </el-button>
+                        </el-tooltip>
+                        <el-tooltip class="box-item" effect="dark" content="预览" placement="bottom">
+                            <el-button size="small" @click="goArticleDetailPage(scope.row.id)" :icon="View" circle>
+                            </el-button>
+                        </el-tooltip>
+                        <el-tooltip class="box-item" effect="dark" content="删除" placement="bottom">
+                            <el-button type="danger" size="small" @click="deleteArticleSubmit(scope.row)" :icon="Delete"
+                                circle>
+                            </el-button>
+                        </el-tooltip>
                     </template>
                 </el-table-column>
             </el-table>
@@ -141,7 +128,8 @@
                 </el-form-item>
                 <el-form-item label="分类" prop="categoryId">
                     <el-select v-model="form.categoryId" clearable placeholder="---请选择---" size="large">
-                        <el-option v-for="item in categories" :key="item.value" :label="item.label" :value="item.value" />
+                        <el-option v-for="item in categories" :key="item.value" :label="item.label"
+                            :value="item.value" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="标签" prop="tags">
@@ -180,8 +168,10 @@
                     </div>
                 </el-affix>
             </template>
+            <el-divider />
             <!-- label-position="top" 用于指定 label 元素在上面 -->
-            <el-form :model="updateArticleForm" ref="updateArticleFormRef" label-position="top" size="large" :rules="rules">
+            <el-form :model="updateArticleForm" ref="updateArticleFormRef" label-position="top" size="large"
+                :rules="rules">
                 <el-form-item label="标题" prop="title">
                     <el-input v-model="updateArticleForm.title" autocomplete="off" size="large" maxlength="40"
                         show-word-limit clearable />
@@ -192,8 +182,8 @@
                         editorId="updateArticleEditor" />
                 </el-form-item>
                 <el-form-item label="封面" prop="cover">
-                    <el-upload class="avatar-uploader" action="#" :on-change="handleUpdateCoverChange" :auto-upload="false"
-                        :show-file-list="false">
+                    <el-upload class="avatar-uploader" action="#" :on-change="handleUpdateCoverChange"
+                        :auto-upload="false" :show-file-list="false">
                         <img v-if="updateArticleForm.cover" :src="updateArticleForm.cover" class="avatar" />
                         <el-icon v-else class="avatar-uploader-icon">
                             <Plus />
@@ -206,7 +196,8 @@
                 </el-form-item>
                 <el-form-item label="分类" prop="categoryId">
                     <el-select v-model="updateArticleForm.categoryId" clearable placeholder="---请选择---" size="large">
-                        <el-option v-for="item in categories" :key="item.value" :label="item.label" :value="item.value" />
+                        <el-option v-for="item in categories" :key="item.value" :label="item.label"
+                            :value="item.value" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="标签" prop="tags">
@@ -226,7 +217,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Search, RefreshRight, Check, Close } from '@element-plus/icons-vue'
+import { Search, RefreshRight, Check, Close, Delete, Edit, Tickets, View } from '@element-plus/icons-vue'
 import { getArticlePageList, deleteArticle, publishArticle, getArticleDetail, updateArticle, updateArticleIsTop, updateArticleIsPublish } from '@/api/admin/article'
 import { uploadFile } from '@/api/admin/file'
 import { getCategorySelectList } from '@/api/admin/category'
@@ -388,8 +379,8 @@ const rules = {
     ],
     content: [{ required: true }],
     cover: [{ required: true }],
-    categoryId: [{ required: false, message: '请选择文章分类', trigger: 'blur' }],
-    tags: [{ required: true, message: '请选择文章标签', trigger: 'blur' }],
+    categoryId: [{ required: true, message: '请选择文章分类', trigger: 'blur' }],
+    tags: [{ required: false, message: '请选择文章标签', trigger: 'blur' }],
 }
 
 // 上传文章封面图片
@@ -581,7 +572,7 @@ const goArticleDetailPage = (articleId) => {
 
 // 点击置顶
 const handleIsTopChange = (row) => {
-    updateArticleIsTop({id: row.id, isTop: row.isTop}).then((res) => {
+    updateArticleIsTop({ id: row.id, isTop: row.isTop }).then((res) => {
         // 重新请求分页接口，渲染列表数据
         getTableData()
 
@@ -598,7 +589,7 @@ const handleIsTopChange = (row) => {
 }
 // 更新发布状态
 const handleIsPublishChange = (row) => {
-    updateArticleIsPublish({id: row.id, isPublish: row.isPublish}).then((res) => {
+    updateArticleIsPublish({ id: row.id, isPublish: row.isPublish }).then((res) => {
         // 重新请求分页接口，渲染列表数据
         getTableData()
 
