@@ -1,5 +1,6 @@
 package com.xq.weblog.web.model.vo.wiki;
 
+import com.xq.weblog.common.model.BasePageQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FindWikiListRspVO {
+public class FindWikiListRspVO extends BasePageQuery {
     private Long id;
     private String cover;
     private String title;

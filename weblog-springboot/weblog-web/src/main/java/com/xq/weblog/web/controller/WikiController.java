@@ -1,10 +1,8 @@
 package com.xq.weblog.web.controller;
 
-import com.xq.weblog.admin.model.vo.article.FindArticlePageListReqVO;
-import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListReqVO;
 import com.xq.weblog.common.aspect.ApiOperationLog;
+import com.xq.weblog.common.model.BasePageQuery;
 import com.xq.weblog.common.utils.Response;
-import com.xq.weblog.web.model.vo.archive.FindArchiveArticlePageListReqVO;
 import com.xq.weblog.web.model.vo.wiki.FindWikiArticlePreNextReqVO;
 import com.xq.weblog.web.model.vo.wiki.FindWikiCatalogListReqVO;
 import com.xq.weblog.web.service.WikiService;
@@ -33,16 +31,8 @@ public class WikiController {
     @PostMapping("/list")
     @ApiOperation(value = "获取知识库数据")
     @ApiOperationLog(description = "获取知识库数据")
-    public Response findWikiList() {
-        return wikiService.findWikiList();
-    }
-
-
-    @PostMapping("/page/list")
-    @ApiOperation(value = "获取文章归档分页数据")
-    @ApiOperationLog(description = "获取文章归档分页数据")
-    public Response findWikiPageList(@RequestBody FindWikiPageListReqVO findWikiPageListReqVO) {
-        return wikiService.findWikiPageList(findWikiPageListReqVO);
+    public Response findWikiList(@RequestBody BasePageQuery basePageQuery) {
+        return wikiService.findWikiList(basePageQuery);
     }
 
     @PostMapping("/catalog/list")

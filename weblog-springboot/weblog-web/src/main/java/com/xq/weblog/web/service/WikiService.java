@@ -1,6 +1,6 @@
 package com.xq.weblog.web.service;
 
-import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListReqVO;
+import com.xq.weblog.common.model.BasePageQuery;
 import com.xq.weblog.common.utils.Response;
 import com.xq.weblog.web.model.vo.wiki.FindWikiArticlePreNextReqVO;
 import com.xq.weblog.web.model.vo.wiki.FindWikiCatalogListReqVO;
@@ -14,10 +14,10 @@ import com.xq.weblog.web.model.vo.wiki.FindWikiCatalogListReqVO;
 public interface WikiService {
 
     /**
-     * 获取知识库
+     * 获取知识库分页列表
      * @return
      */
-    Response findWikiList();
+    Response findWikiList(BasePageQuery basePageQuery);
 
     /**
      * 获取知识库目录
@@ -32,12 +32,5 @@ public interface WikiService {
      * @return
      */
     Response findArticlePreNext(FindWikiArticlePreNextReqVO findWikiArticlePreNextReqVO);
-
-    /**
-     * 知识库分页查询
-     * @param findWikiPageListReqVO
-     * @return
-     */
-    Response findWikiPageList(FindWikiPageListReqVO findWikiPageListReqVO);
 
 }

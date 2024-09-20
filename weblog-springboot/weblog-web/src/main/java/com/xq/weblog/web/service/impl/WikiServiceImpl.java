@@ -1,10 +1,10 @@
 package com.xq.weblog.web.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
-import com.xq.weblog.admin.convert.WikiConvert;
-import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListReqVO;
-import com.xq.weblog.admin.model.vo.wiki.FindWikiPageListRspVO;
+import com.xq.weblog.common.model.BasePageQuery;
 import com.xq.weblog.common.domain.dos.WikiCatalogDO;
 import com.xq.weblog.common.domain.dos.WikiDO;
 import com.xq.weblog.common.domain.mapper.WikiCatalogMapper;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -41,14 +40,23 @@ public class WikiServiceImpl implements WikiService {
     private WikiCatalogMapper wikiCatalogMapper;
 
     /**
-     * 获取知识库
+     * 获取知识库列表
      *
      * @return
      */
     @Override
-    public Response findWikiList() {
+    public Response findWikiList(BasePageQuery basePageQuery) {
+        Page<WikiDO> page = new Page<>(basePageQuery.getCurrent(), basePageQuery.getSize());
+        LambdaQueryWrapper<WikiDO> lambdaQuery = Wrappers.lambdaQuery(WikiDO.class);
+
+        lambdaQuery.eq(WikiDO::getIsPublish, 1) // 查询已发布的， is_publish 值为 1
+                .orderByDesc(WikiDO::getWeight) // 按权重降序
+                .orderByDesc(WikiDO::getCreateTime); // 按发布时间降序
         // 查询已发布的知识库
-        List<WikiDO> wikiDOS = wikiMapper.selectPublished();
+        Page<WikiDO> wikiDOPage = wikiMapper.selectPage(page, lambdaQuery);
+
+        // 获取查询记录
+        List<WikiDO> wikiDOS = wikiDOPage.getRecords();
 
         // DO 转 VO
         List<FindWikiListRspVO> vos = null;
@@ -71,7 +79,7 @@ public class WikiServiceImpl implements WikiService {
             });
         }
 
-        return Response.success(vos);
+        return PageResponse.success(wikiDOPage, vos);
     }
 
     /**
@@ -176,36 +184,4 @@ public class WikiServiceImpl implements WikiService {
         return Response.success(vo);
     }
 
-    /**
-     * 知识库分页查询
-     *
-     * @param findWikiPageListReqVO
-     * @return
-     */
-    @Override
-    public Response findWikiPageList(FindWikiPageListReqVO findWikiPageListReqVO) {
-        // 获取当前页、以及每页需要展示的数据数量
-        Long current = findWikiPageListReqVO.getCurrent();
-        Long size = findWikiPageListReqVO.getSize();
-        // 查询条件
-        String title = findWikiPageListReqVO.getTitle();
-        LocalDate startDate = findWikiPageListReqVO.getStartDate();
-        LocalDate endDate = findWikiPageListReqVO.getEndDate();
-
-        // 执行分页查询
-        Page<WikiDO> wikiDOPage = wikiMapper.selectPageList(current, size, title, startDate, endDate, null);
-
-        // 获取查询记录
-        List<WikiDO> wikiDOS = wikiDOPage.getRecords();
-
-        // DO 转 VO
-        List<FindWikiPageListRspVO> vos = null;
-        if (!CollectionUtils.isEmpty(wikiDOS)) {
-            vos = wikiDOS.stream()
-                    .map(articleDO -> WikiConvert.INSTANCE.convertDO2VO(articleDO))
-                    .collect(Collectors.toList());
-        }
-
-        return PageResponse.success(wikiDOPage, vos);
-    }
 }
