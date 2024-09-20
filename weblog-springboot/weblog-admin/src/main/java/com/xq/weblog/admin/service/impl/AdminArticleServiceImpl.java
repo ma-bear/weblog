@@ -155,7 +155,7 @@ public class AdminArticleServiceImpl implements AdminArticleService {
         Integer type = findArticlePageListReqVO.getType();
 
         // 执行分页查询
-        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, title, startDate, endDate, type,null);
+        Page<ArticleDO> articleDOPage = articleMapper.selectPageList(current, size, title, startDate, endDate, type);
 
         List<ArticleDO> articleDOS = articleDOPage.getRecords();
 
